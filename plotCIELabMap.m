@@ -4,7 +4,7 @@ function [h]=plotCIELabMap(L_star,a_star_axis,b_star_axis,varargin)
 %Produces a uniform lightness colormap given ranges of a and be coordiantes
 %using sRGB values
 %
-%Input values
+%Input values (default)
 %   lightness value     L_star=80;
 %   a-axis               a_star=[-40:40];
 %   b-axis               b_star=[-40:40];
@@ -13,7 +13,7 @@ function [h]=plotCIELabMap(L_star,a_star_axis,b_star_axis,varargin)
 %
 %plotCIELabMap(60,[-40:2:40],[-40:2:40])
 %
-%Options 
+%Options
 %Name-Value Arguments
 %         ColorSpace - Color space of the output RGB values
 %             'srgb' (default) | 'adobe-rgb-1998' | 'prophoto-rgb' |
@@ -30,6 +30,13 @@ function [h]=plotCIELabMap(L_star,a_star_axis,b_star_axis,varargin)
 %
 %
 % Anders Thorseth, DTU Electro, 2025
+
+% if nargin<1
+%     warning('Default values: lightness value, L_star=80, a-axis a_star=[-40:40],b-axis, b_star=[-40:40]');
+%     L_star=80;
+%     a_star=[-40:40];
+%     b_star=[-40:40];
+% end
 
 
 % Define optional parameters for lab2rgb conversion
@@ -68,7 +75,7 @@ if recalculate
 
     disp('recalculating')
 
-    %set default values 
+    %set default values
     if nargin<1
         L_star=100;
     end
@@ -91,7 +98,6 @@ if recalculate
     end
     save(fullfile(userpath,'CIELabColorMap'),"Lab_array","a_star_axis","b_star_axis")
 end
-
 
 h=image(a_star_axis,b_star_axis,Lab_array);
 xlabel("CIE a*")
